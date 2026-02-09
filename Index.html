@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macchina Gialla Game</title>
+    <style>
+        /* Importazione Font Rubik Doodle Shadow */
+        @font-face {
+            font-family: 'Rubik Doodle Shadow';
+            src: url(https://design.penpot.app/internal/gfonts/font/rubikdoodleshadow/v1/rP2bp3im_k8G_wTVdvvMdHqmXTR3lEaL-KyT3Q.woff2) format('woff2');
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: 'Rubik Doodle Shadow', cursive;
+        }
+
+        * { box-sizing: border-box; }
+
+        /* Sfondo Principale (Mobile View) */
+        .sfondo {
+            position: relative;
+            width: 402px;
+            height: 874px;
+            background: linear-gradient(to bottom, #ffffff 0%, #ffd900 100%);
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+
+        /* Testi Introduttivi */
+        .macchina-gialla {
+            position: absolute;
+            left: 25px;
+            top: 52px;
+            width: 352px;
+            font-size: 36px;
+            text-align: center;
+        }
+
+        .game {
+            position: absolute;
+            left: 50px;
+            top: 90px;
+            font-size: 80px;
+            text-align: center;
+            width: 300px;
+        }
+
+        /* Tasto Reset (Dragon Ball Style)
+        .reset-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #ff8c00;
+            border: 3px solid #b22222;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            z-index: 100;
+            transition: transform 0.2s;
+        }
+        .reset-btn:active { transform: scale(0.9); }
+        .reset-btn::after {
+            content: "★";
+            color: #b22222;
+            font-size: 25px;
+        }
+
+        /* Nomi Giocatori */
+        .nome-stefano { position: absolute; left: 32px; top: 300px; font-size: 28px; }
+        .nome-aurora { position: absolute; left: 231px; top: 300px; font-size: 28px; }
+
+        /* Contenitori Punti */
+        .rettangolo-punti-stefano, .rettangolo-punti-aurora {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            top: 350px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.7));
+            border-radius: 20px;
+            box-shadow: 2px 4px 8px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 60px;
+        }
+        .rettangolo-punti-stefano { left: 25px; }
+        .rettangolo-punti-aurora { left: 217px; }
+
+        /* Tasti + e - */
+        .btn-control {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0.8));
+            border-radius: 20px;
+            box-shadow: 2px 4px 8px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .btn-control:active { background: rgba(255,255,255,0.9); }
+
+        .meno-stefano { left: 25px; top: 526px; }
+        .piu-stefano { left: 125px; top: 526px; }
+        .meno-aurora { left: 217px; top: 526px; }
+        .piu-aurora { left: 317px; top: 526px; }
+
+        /* Regolamento */
+        .rettangolo-regolamento {
+            position: absolute;
+            left: 25px;
+            top: 670px;
+            width: 352px;
+            height: 180px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.7));
+            border-radius: 20px;
+            box-shadow: 2px 4px 8px rgba(0,0,0,0.3);
+            padding: 15px;
+        }*/
+
+        .regole-lista {
+            
+            margin: 0;
+            padding-left: 200px;
+            list-style-type: circle;
+        }
+        .regole-lista p { 
+            font-size: 23px;
+            margin-bottom: 5px;
+            margin-top: -2px; 
+            font-weight: bold;
+            margin-left: -17px; }
+        .regole-lista li { 
+            font-size: 17px;
+            margin-bottom: 2px; }
+
+
+    </style>
+</head>
+<body>
+
+<div class="sfondo">
+    <div class="reset-btn" onclick="resetGame()" title="Reset Punti"></div>
+
+    <div class="macchina-gialla">MACCHINA GIALLA</div>
+    <div class="game">GAME</div>
+
+
+    <div class="nome-stefano">STEFANO</div>
+    <div id="punti-stefano" class="rettangolo-punti-stefano">0</div>
+
+    <div class="btn-control meno-stefano" onclick="cambiaPunti('stefano', -1)">-</div>ù
+    
+    <div class="btn-control piu-stefano" onclick="cambiaPunti('stefano', 1)">+</div>
+    
+
+    <div class="nome-aurora">AURORA</div>
+    <div id="punti-aurora" class="rettangolo-punti-aurora">0</div>
+    <div class="btn-control meno-aurora" onclick="cambiaPunti('aurora', -1)">-</div>
+    
+    <div class="btn-control piu-aurora" onclick="cambiaPunti('aurora', 1)">+</div>
+    
+
+    <div class="rettangolo-regolamento">
+        <ul class="regole-lista">
+            <p>REGOLAMENTO PUNTI:</p>
+            <li>Macchina = 1 Punto</li>
+            <li>Furgone = 2 Punti</li>
+            <li>Camion = 3 Punti</li>
+            <li>Maggiolino = 5 Punti</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    // Inizializzazione punteggi
+    let punteggioStefano = 0;
+    let punteggioAurora = 0;
+
+    // Funzione per cambiare i punti
+    function cambiaPunti(giocatore, valore) {
+        if (giocatore === 'stefano') {
+            punteggioStefano += valore;
+            if (punteggioStefano < 0) punteggioStefano = 0;
+            document.getElementById('punti-stefano').innerText = punteggioStefano;
+        } else {
+            punteggioAurora += valore;
+            if (punteggioAurora < 0) punteggioAurora = 0;
+            document.getElementById('punti-aurora').innerText = punteggioAurora;
+        }
+    }
+
+    // Funzione Reset (Sfera del Drago)
+    function resetGame() {
+        if(confirm("Vuoi azzerare la sfida tra te e Aurora?")) {
+            punteggioStefano = 0;
+            punteggioAurora = 0;
+            document.getElementById('punti-stefano').innerText = "0";
+            document.getElementById('punti-aurora').innerText = "0";
+        }
+    }
+</script>
+
+</body>
+</html>
